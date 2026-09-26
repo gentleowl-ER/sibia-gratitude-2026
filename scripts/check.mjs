@@ -23,7 +23,8 @@ for (const match of html.matchAll(/(?:src|href)="\.\/([^"?#]+)"/g)) {
 }
 assert.ok(!/<input[^>]*(?:name|type)="(?:email|password|file)"/i.test(html), 'Public landing page must not collect personal data.');
 assert.match(html, /2026 年採線上試辦：取消紙本寄送/);
-assert.match(html, /2026 年 11 月 1–30 日/);\nassert.match(html, /Google Form 與評審後台正在完成設定/);
+assert.match(html, /2026 年 11 月 1–30 日/);
+assert.match(html, /Google Form 與評審後台正在完成設定/);
 assert.match(read('site/app.js'), /url\.searchParams\.set\('awards'/);
 assert.match(read('site/style.css'), /prefers-reduced-motion/);
 for (const name of readdirSync(new URL('site/',root))) {
