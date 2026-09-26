@@ -1,7 +1,7 @@
 /* Public activity navigation only. All registration and uploads stay in the Google web app. */
 (() => {
   'use strict';
-  const APP = 'https://script.google.com/macros/s/AKfycbyUH7KkCQQIvG9ZQo9B8j3dzXy-cREGI00mwPpVJ2HWjam8gqvd2nQoBrgbYzjAmr160Q/exec';
+  const APP = null; // Google Form remains unpublished during setup/QA.
   const awards = window.SIBIA_AWARDS || [];
   const selected = new Set();
   let group = '全部';
@@ -11,8 +11,8 @@
   const esc = value => String(value ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
   const symbols = {book:'▱',globe:'◎',sun:'☼',sprout:'❧',pen:'✎',art:'✧',heart:'♡',gift:'✳',medal:'✺'};
   function applicationUrl(ids = [...selected]) {
+    if (!APP) return new URL('#intake-status', window.location.href).href;
     const url = new URL(APP);
-    url.searchParams.set('apply','1');
     if (ids.length) url.searchParams.set('awards', ids.filter(id => awards.some(a => a.id === id)).join(','));
     return url.href;
   }
@@ -37,7 +37,7 @@
   function details(id) {
     const a = awards.find(item => item.id === id);
     if (!a) return;
-    document.getElementById('detail').innerHTML = `<p class="eyebrow muted">${esc(a.code)} / ${esc(a.group)}</p><h2 id="award-title">${esc(a.name)}</h2><small>${esc(a.en)}</small><h3>申請對象</h3><p>${esc(a.audience)}</p><h3>名額與金額</h3><p>${esc(a.prize)} · ${esc(a.amount)} 美元。實際名額及金額仍依原簡章及評審結果。</p><h3>表格與紙本</h3><p><b>${esc(a.forms)}</b><br>${esc(a.paper)}</p><h3>重要提醒</h3><p>${esc(a.note)}</p><small>來源：2026.09.26 修訂簡章「${esc(a.source)}」。本摘要不代替資格審核。</small><br><button type="button" class="button" id="detail-select">${selected.has(id) ? '取消選擇此獎項' : '將此獎项加入申請'}</button>`;
+    document.getElementById('detail').innerHTML = `<p class="eyebrow muted">${esc(a.code)} / ${esc(a.group)}</p><h2 id="award-title">${esc(a.name)}</h2><small>${esc(a.en)}</small><h3>申請對象</h3><p>${esc(a.audience)}</p><h3>名額與金額</h3><p>${esc(a.prize)} · ${esc(a.amount)} 美元。實際名額及金額仍依原簡章及評審結果。</p><h3>表格與線上附件</h3><p><b>${esc(a.forms)}</b><br>${esc(a.paper)}</p><h3>重要提醒</h3><p>${esc(a.note)}</p><small>來源：2026.09.26 修訂簡章「${esc(a.source)}」。本摘要不代替資格審核。</small><br><button type="button" class="button" id="detail-select">${selected.has(id) ? '取消選擇此獎項' : '將此獎项加入申請'}</button>`;
     document.getElementById('detail-select').addEventListener('click', () => { dialog.close(); toggle(id); });
     if (typeof dialog.showModal === 'function') dialog.showModal(); else dialog.setAttribute('open','');
   }
