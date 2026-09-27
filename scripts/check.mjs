@@ -22,7 +22,7 @@ for (const match of html.matchAll(/(?:src|href)="\.\/([^"?#]+)"/g)) {
   assert.ok(existsSync(new URL('site/'+match[1], root)), `Missing local asset ${match[1]}`);
 }
 assert.ok(!/<input[^>]*(?:name|type)="(?:email|password|file)"/i.test(html), 'Public landing page must not collect personal data.');
-assert.match(html, /2026 年採線上試辦：取消紙本寄送/);
+assert.match(html, /線上操作確有困難/);
 assert.match(html, /2026 年 11 月 1–30 日/);
 assert.match(html, /線上投稿已依主辦者指示正式開放/);
 assert.match(read('site/app.js'), /url\.searchParams\.set\('awards'/);
