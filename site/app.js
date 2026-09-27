@@ -1,7 +1,7 @@
 /* Public activity navigation only. All registration and uploads stay in the Google web app. */
 (() => {
   'use strict';
-  const APP = null; // Google Form remains unpublished during setup/QA.
+  const APP = 'https://script.google.com/macros/s/AKfycbyUH7KkCQQIvG9ZQo9B8j3dzXy-cREGI00mwPpVJ2HWjam8gqvd2nQoBrgbYzjAmr160Q/exec'; // Google Apps Script intake.
   const awards = window.SIBIA_AWARDS || [];
   const selected = new Set();
   let group = '全部';
